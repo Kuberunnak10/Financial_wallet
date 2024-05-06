@@ -13,14 +13,17 @@ class Wallet:
     def __init__(self, file_name):
         self.file_name = file_name
 
+    # Метод Добавления записи
     def add_record(self, record):
         with open(self.file_name, 'a', encoding='utf-8') as file:
             file.write(str(record) + '\n\n')
 
+    # Метод прочтения записи
     def read_records(self):
         with open(self.file_name, 'r', encoding='utf-8') as file:
             return file.read()
 
+    # Метод изменения записи
     def replace_record(self, old_date, old_category, old_amount, old_description, new_record):
         with open(self.file_name, 'r', encoding='utf-8') as file:
             lines = file.readlines()
@@ -44,6 +47,7 @@ class Wallet:
         if not replaced:
             print("Запись не найдена.")
 
+    # Метод нахождения запили или записей
     def find_records(self, category=None, date=None, amount=None):
         with open(self.file_name, 'r', encoding='utf-8') as file:
             records = file.read().split('\n\n')
@@ -59,6 +63,7 @@ class Wallet:
             return "\n\n".join(found_records)
 
 
+# Функция подсчета доходов и расходов
 def calculate_balance(records):
     incomes = 0
     expenses = 0
@@ -72,4 +77,3 @@ def calculate_balance(records):
             elif category == 'Расход':
                 expenses += amount
     return incomes, expenses, incomes - expenses
-
